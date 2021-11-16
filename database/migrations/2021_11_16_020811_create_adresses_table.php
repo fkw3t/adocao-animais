@@ -1,0 +1,37 @@
+<?php
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+class CreateAdressesTable extends Migration
+{
+    /**
+     * Run the migrations.
+     *
+     * @return void
+     */
+    public function up()
+    {
+        Schema::create('adresses', function (Blueprint $table) {
+            $table->uuid('id')->unique();
+            $table->uuid('user_id');
+            $table->string('address');
+            $table->string('postal_code');
+            $table->string('state');
+            $table->string('city');
+            $table->string('country');
+            $table->timestamps();
+        });
+    }
+
+    /**
+     * Reverse the migrations.
+     *
+     * @return void
+     */
+    public function down()
+    {
+        Schema::dropIfExists('adresses');
+    }
+}
