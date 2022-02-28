@@ -1,0 +1,46 @@
+nav
+{
+    font-family: 'Montserrat';
+    background-color: rgb(163, 123, 108);
+    font-size: medium;
+}
+#logo
+{
+    color: white;
+    width: 95px;
+    height: 75px;
+    border-radius: 10px;
+    background-color: rgb(229, 226, 226);
+}
+
+footer {
+    height: 40px;
+    position: fixed; 
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 50px;
+    background-color: rgb(22, 22, 22);
+}
+
+footer a
+{
+    width: 100px;
+    height: 100px;
+    text-decoration: none;
+    color: white;
+}
+footer a svg
+{
+    width: 25px;
+    height: 25px;
+    text-decoration: none;
+    color: white;
+}
+
+.redes-sociais h5
+{
+    font-size: medium;
+    font: 'Montserrat';
+    color: white;
+}

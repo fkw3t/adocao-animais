@@ -13,43 +13,37 @@ class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;
 
-    protected static function booted()
-    {
-        static::creating(fn(User $user) => $user->id = Str::uuid());
-    }
+    protected $guard = 'user';
 
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var string[]
-     */
     protected $fillable = [
+        'id',
         'name',
-        'email',
-        'password',
+        'email'
     ];
 
-    /**
-     * The attributes that should be hidden for serialization.
-     *
-     * @var array
-     */
     protected $hidden = [
         'password',
         'remember_token',
     ];
 
-    /**
-     * The attributes that should be cast.
-     *
-     * @var array
-     */
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
-
+    
+    // protected static function booted()
+    // {
+    //     static::creating(fn(User $user) => $user->id = (string) Str::uuid());
+    // }
     public function address()
     {
-        return $this->hasOne(Address::class);
+        return $this->hasOne(Address::class, 'user_id', 'id');
+    }    
+    public function posts()
+    {
+        return $this->hasMany(Post::class, 'author', 'id');
+    }
+    public function animals()
+    {
+        return $this->hasMany(Animal::class, 'owner', 'id');
     }
 }

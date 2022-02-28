@@ -4,6 +4,6 @@
 - Usar TDD
 - Implementar própio sistema de login/cadastro/autenticação
 - Desenvolver API para o projeto
-- Usar factories/seeders
-- Desenvolver middlewares própias
 - Usar service providers
+- Desenvolver middlewares própias
+- Usar factories/seeders

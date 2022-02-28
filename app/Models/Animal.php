@@ -6,22 +6,22 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
 
-class Address extends Model
+class Animal extends Model
 {
     use HasFactory;
-    
+
     // protected $keyType = 'string';
 
     // protected static function booted()
     // {
-    //     static::creating(fn(Address $address) => $address->id = Str::uuid());
+    //     static::creating(fn(Animal $animal) => $animal->id = Str::uuid());
     // }
     public function user()
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class, 'owner', 'id');
     }
-    public function ong()
+    public function post()
     {
-        return $this->belongsTo(Ong::class);
+        return $this->belongsTo(Post::class, 'post', 'id');
     }
 }

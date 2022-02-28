@@ -2,10 +2,9 @@
 
 namespace Database\Seeders;
 
-use App\Models\Address;
 use Illuminate\Database\Seeder;
 
-class AddressSeeder extends Seeder
+class AnimalSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -14,6 +13,6 @@ class AddressSeeder extends Seeder
      */
     public function run()
     {
-        Address::factory()->create();
+        //
     }
 }

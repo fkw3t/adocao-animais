@@ -14,7 +14,8 @@ class CreateOngsTable extends Migration
     public function up()
     {
         Schema::create('ongs', function (Blueprint $table) {
-            $table->uuid('id')->unique();
+            // $table->uuid('id')->primary();
+            $table->id();
             $table->string('name');
             $table->string('document')->unique();
             $table->string('email')->unique();

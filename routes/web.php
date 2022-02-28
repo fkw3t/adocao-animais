@@ -1,5 +1,9 @@
 <?php
 
+use App\Http\Controllers\AuthController;
+use App\Http\Controllers\OngController;
+use App\Http\Controllers\UserController;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -14,5 +18,16 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('home');
+    // Auth::logout();
+})->name('home');
+
+Route::name('auth.')->group(function(){
+    Route::get('{provider}/create',[AuthController::class, 'register'])->name('register');
+    Route::get('{provider}/signin',[AuthController::class, 'getLoginPage'])->name('getLogin');
+    Route::post('{provider}/login', [AuthController::class, 'login'])->name('login');
+    Route::get('logout', [AuthController::class, 'logout'])->name('logout');
 });
+
+Route::resource('user', UserController::class)->middleware('auth');
+Route::resource('ong', OngController::class);

@@ -3,6 +3,8 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Support\Str;
+use Ramsey\Uuid\Uuid;
 
 class CreateUsersTable extends Migration
 {
@@ -14,12 +16,13 @@ class CreateUsersTable extends Migration
     public function up()
     {
         Schema::create('users', function (Blueprint $table) {
-            $table->uuid('id')->unique();
+            // $table->uuid('id')->primary();
+            $table->id();
             $table->string('name');
             $table->string('email')->unique();
             $table->string('user')->unique();
             $table->string('phone_number')->nullable();
-            $table->date('date_of_birth');
+            $table->date('birth_date');
             $table->string('document')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');

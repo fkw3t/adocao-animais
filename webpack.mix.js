@@ -14,6 +14,8 @@ const mix = require('laravel-mix');
 mix.js('resources/js/app.js', 'public/js')
     .sass('resources/sass/app.scss', 'public/css')
     .sourceMaps();
-    
+
+mix.styles('resources/css/header-footer.css', 'public/css/header-footer.css');
+mix.styles('resources/css/user-register.css', 'public/css/user-register.css');
 // how to compile multiple css files \/
 // mix.styles(['resources/css/file1.css', 'resources/css/file2.css'], 'public/css/file_unified.css');

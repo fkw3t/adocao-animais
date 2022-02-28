@@ -2,82 +2,86 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Address;
+use App\Models\User;
+use App\Rules\AgeMajority;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Validation\Rules\Password;
 
 class UserController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+
     public function index()
     {
-        //
+        return view('user.perfil', ['user' => Auth::user()]); 
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function create()
     {
-        //
+        // 
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'name' => ['required', 'max:120'],
+            'user' => ['required', 'max:15', 'unique:App\Models\User,user'],
+            'phone_number' => ['required', 'numeric', 'digits:11'],
+            'birth_date' => ['required', new AgeMajority],
+            'document' => ['required', 'numeric', 'digits:11', 'unique:App\Models\User,document'],
+            'email' => ['required', 'email', 'unique:App\Models\User,email'],
+            'password' => ['required', Password::min(8)]
+        ]);
+
+        $user = new User();
+        $user->name = $request->name;
+        $user->email = $request->email;
+        $user->user = $request->user;
+        $user->birth_date = $request->birth_date;
+        $user->phone_number = $request->phone_number;
+        $user->document = $request->document;
+        $user->password = Hash::make($request->password);
+        $user->save();
+
+        Auth::login($user);
+
+        return redirect('/');        
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
+    public function show(User $user)
     {
         //
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
+    public function edit(User $user)
     {
-        //
+        return view('user.edit', ['user' => $user]);
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
+    public function update(Request $request, User $user)
     {
-        //
+        $data = $request->validate([
+            'name' => ['required', 'max:120'],
+            'user' => ['required', 'max:15', 'unique:App\Models\User,user,' . $user->id],
+            'phone_number' => ['required', 'numeric', 'digits:11'],
+            'birth_date' => ['required', new AgeMajority],
+            'document' => ['required', 'numeric', 'digits:11', 'unique:App\Models\User,document,' . $user->id],
+            'address' => ['max:250'],
+            'postcode' => ['numeric', 'digits:8'],
+            'city' => ['max:100'],
+            'state' => ['max:100'],
+            'country' => ['max:100']
+        ]);
+
+        $user->update($data);
+        $user->save();
+
+        return redirect('/');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
+    public function destroy(User $user)
     {
         //
     }

@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateAddressesTable extends Migration
+class CreateAnimalsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,16 +13,17 @@ class CreateAddressesTable extends Migration
      */
     public function up()
     {
-        Schema::create('addresses', function (Blueprint $table) {
+        Schema::create('animals', function (Blueprint $table) {
             // $table->uuid('id')->primary();
             $table->id();
-            // $table->uuid('user_id');
-            $table->foreignId('user_id');
-            $table->string('address');
-            $table->string('postal_code');
-            $table->string('state');
-            $table->string('city');
-            $table->string('country');
+            // $table->uuid('post');
+            $table->foreignId('post');
+            // $table->uuid('owner');
+            $table->foreignId('owner');
+            $table->string('name');
+            $table->string('species');
+            $table->text('description')->nullable();
+            $table->integer('age');
             $table->timestamps();
         });
     }
@@ -34,6 +35,6 @@ class CreateAddressesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('addresses');
+        Schema::dropIfExists('animals');
     }
 }
